@@ -1,0 +1,34 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that the bad logon attempts must be reasonably small to minimize the possibility of a successful password attack, 
+    while allowing for honest errors made during a normal user logon.
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTorresTech
+    Date Created    : 2025-10-07
+    Last Modified   : 2025-10-07
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-AC-000010
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-WN10-AC-000010.ps1 
+#>
+
+
+# Set account lockout threshold to 3
+secedit /export /cfg secpol.cfg
+(gc secpol.cfg) | % { $_ -replace '^LockoutBadCount\s*=\s*\d+', 'LockoutBadCount = 3' } | Set-Content secpol.cfg
+secedit /configure /db secedit.sdb /cfg secpol.cfg /areas SECURITYPOLICY
+Remove-Item secpol.cfg
