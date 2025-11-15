@@ -23,7 +23,7 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\STIG:WN11-00-000125
+    PS C:\> .\STIG:WN11-00-000125.ps1
 #>
 
 # Registry path for per-user Copilot policy
