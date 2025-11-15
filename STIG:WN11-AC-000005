@@ -1,0 +1,33 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures a secure account lockout duration to prevent successful brute-force password attacks. 
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTechTorres
+    Date Created    : 2025-11-15
+    Last Modified   : 2025-11-15
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AC-000005
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-WN11-AC-000005.ps1 
+#>
+
+# Sets the Account Lockout Duration to 15 minutes or greater. 0 requiring an administrator to unlock the account which is more restrictive.
+$duration = 15  # Set this to 15 or higher to meet STIG compliance
+net accounts /lockoutduration:$duration
+
+# Optional: Verify current settings
+net accounts
