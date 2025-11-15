@@ -1,0 +1,32 @@
+<#
+.SYNOPSIS
+  Powershell script which disables of the Secondary Logon service. This service allows users to run commands and programs with alternate credentials, typically giving them elevated privileges in a 
+  standard user session. Disabling this service helps prevent privilege escalation and reduces the risk of credential theft in enterprise environments
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTechTorres
+    Date Created    : 2025-11-15
+    Last Modified   : 2025-11-15
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-00-000175
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG:WN11-00-000175
+#>
+# Stop the 'Secondary Logon' service if it is running
+Stop-Service -Name 'seclogon' -Force
+
+# Set the startup type of 'Secondary Logon' service to Disabled
+Set-Service -Name 'seclogon' -StartupType Disabled
