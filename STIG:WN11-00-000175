@@ -23,7 +23,7 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\STIG:WN11-00-000175
+    PS C:\> .\STIG:WN11-00-000175.ps1
 #>
 # Stop the 'Secondary Logon' service if it is running
 Stop-Service -Name 'seclogon' -Force
