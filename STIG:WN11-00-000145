@@ -14,10 +14,10 @@
     STIG-ID         : WN11-00-000145
 
 .TESTED ON
-    Date(s) Tested  : 
-    Tested By       : 
-    Systems Tested  : 
-    PowerShell Ver. : 
+    Date(s) Tested  : 2025-11-15
+    Tested By       : Andres Torres
+    Systems Tested  : "STIG-Andres"
+    PowerShell Ver. : 5.1.26100.7019
 
 .USAGE
     Put any usage instructions here.
@@ -25,8 +25,8 @@
     PS C:\> .\STIG-WN11-00-000145.ps1 
 #>
 
-#bcdedit: This is a Windows command-line tool that edits the Boot Configuration Data (BCD) store. The BCD holds settings that control how Windows boots and what options are applied at startup.
-#"{current}": This refers to the currently active Windows boot entry
-#nx: This parameter controls Data Execution Prevention (DEP)
+# bcdedit: This is a Windows command-line tool that edits the Boot Configuration Data (BCD) store. The BCD holds settings that control how Windows boots and what options are applied at startup.
+# "{current}": This refers to the currently active Windows boot entry
+# nx: This parameter controls Data Execution Prevention (DEP)
 
 $DEPResult = bcdedit /set "{current}" nx OptOut
