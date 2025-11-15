@@ -1,0 +1,33 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures a secure account lockout duration before the bad logon counter is reset to prevent successful brute-force password attacks. 
+    The smaller this value is, the less effective the account lockout feature will be in protecting the local system.
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTechTorres
+    Date Created    : 2025-11-15
+    Last Modified   : 2025-11-15
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AC-000015
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-WN11-AC-000015.ps1 
+#>
+
+# Sets the Account Lockout Reset counter Duration to 15 minutes. 
+# The lower the number the less secure. You want the reset counter to remain for as long as possible to account for failed log on's. 
+$duration = 15  # Set this to 15 or higher to meet STIG compliance 
+
+net accounts /lockoutwindow:$duration
