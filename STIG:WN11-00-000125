@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
-   Disables Copilot which prevent accidental transmission of system or user data outside the organization's secure environment. Disabling Copilot helps reduce the risk of unapproved data sharing, potential privacy violations, 
-   and the possibility of sensitive information being exposed to unauthorized parties
+   This PowerShell script disables Copilot which prevent accidental transmission of system or user data outside the organization's secure environment. 
+   Disabling Copilot helps reduce the risk of unapproved data sharing, potential privacy violations, and the possibility of sensitive information being exposed to unauthorized parties
 
 .NOTES
     Author          : Andres Torres
