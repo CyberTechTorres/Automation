@@ -1,0 +1,43 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures users do not recycle the same password for over 24 passwords rememebered in a system. This makes the system less vulnerable.
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTechTorres
+    Date Created    : 2025-11-15
+    Last Modified   : 2025-11-15
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AC-000020
+
+.TESTED ON
+    Date(s) Tested  : 2025-11-15
+    Tested By       : Andres Torres 
+    Systems Tested  : "STIG-Andres"
+    PowerShell Ver. : 5.1.26100.7019
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-WN11-AC-000020.ps1 
+#>
+# Set "Enforce password history" to 24 passwords remembered (Local Security Policy)
+# Actual password history value is stored in Security Policy, set via secedit or LGPO.exe
+
+# Using secedit to export current security policy
+$cfgPath = "$env:SystemDrive\TempSecEdit.cfg"
+secedit /export /cfg $cfgPath
+
+# Update PasswordHistorySize
+(Get-Content $cfgPath) -replace 'PasswordHistorySize = \d+', 'PasswordHistorySize = 24' | Set-Content $cfgPath
+
+# Apply the updated policy
+secedit /configure /db secedit.sdb /cfg $cfgPath /areas SECURITYPOLICY
+
+# Cleanup
+Remove-Item $cfgPath
+
+Write-Output "Password history configured: 24 passwords remembered (STIG WN11-AC-000020)"
