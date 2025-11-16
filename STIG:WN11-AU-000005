@@ -1,0 +1,38 @@
+<#
+.SYNOPSIS
+   This powerShell script configures system to Audit Account Logon Credential Validation Failures. Collecting this data is essential for analyzing the security of information assets and detecting signs of suspicious and unexpected behavior.
+   By default Windows Systems have no audit logs for Validation Logon failures. 
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTechTorres
+    Date Created    : 2025-11-15
+    Last Modified   : 2025-11-15
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-AU-000005
+
+.TESTED ON
+    Date(s) Tested  : 2025-11-15  
+    Tested By       : Andres Torres
+    Systems Tested  : "STIG-Andres"
+    PowerShell Ver. : 5.1.26100.7019
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG:WN11-AU-000005.ps1
+#>
+# Enable auditing of Account Logon - Credential Validation failures
+auditpol.exe /set /subcategory:"Credential Validation" /failure:enable
+
+# Optional: Verify the policy is set correctly
+auditpol.exe /get /subcategory:"Credential Validation"
+
+# Optional: Verify the policy is set correctly
+# Open a Command Prompt with elevated privileges
+# Run: AuditPol /get /category:*
+# Look for Subcategory "Account Logon - Credential Validation"
+# Verify "Credential Validation : Failure"
