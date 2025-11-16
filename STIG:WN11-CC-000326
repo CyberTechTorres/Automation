@@ -1,0 +1,38 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures Powershell script block logging is enabled by configuring Windows Registry. This feature allows record detailed information 
+    from the processing of PowerShell commands and scripts. This can provide additional detail when malware has run on a system.
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTechTorres
+    Date Created    : 2025-11-16
+    Last Modified   : 2025-11-16
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-CC-000326
+
+.TESTED ON
+    Date(s) Tested  : 2025-11-16
+    Tested By       : Andres Torres
+    Systems Tested  : "STIG-Andres"
+    PowerShell Ver. : 5.1.26100.7019
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-WN11-CC-000326.ps1 
+#>
+
+# Ensure the ScriptBlockLogging key exists
+$regPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
+if (-Not (Test-Path $regPath)) {
+    New-Item -Path $regPath -Force | Out-Null
+}
+# Set EnableScriptBlockLogging to 1
+Set-ItemProperty -Path $regPath -Name "EnableScriptBlockLogging" -Value 1
+
+# Optional: Force policy refresh
+gpupdate /force
