@@ -1,7 +1,8 @@
 <#
 .SYNOPSIS
     This PowerShell script ensures Powershell script block logging is enabled by configuring Windows Registry. This feature allows record detailed information 
-    from the processing of PowerShell commands and scripts. This can provide additional detail when malware has run on a system.
+    from the processing of PowerShell commands such as script/code blocks. Logs are sent over to Windows Event Log. This can provide additional 
+    detail when malware has run on a system.
 
 .NOTES
     Author          : Andres Torres
