@@ -1,0 +1,50 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures PowerShell Transcription is enabled for Windows 11. Enabling PowerShell Transcription will record every command you type and every result 
+    you see in a PowerShell session. This can provide additional detail when malware has run on a system. Important to have a restricted output location for these transcription logs.
+    Set permissions to the transcription log folder accordingly. 
+
+.NOTES
+    Author          : Andres Torres
+    LinkedIn        : linkedin.com/in/andres-torres-richardson
+    GitHub          : github.com/CyberTechTorres
+    Date Created    : 2025-11-16
+    Last Modified   : 2025-11-16
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-CC-000327
+
+.TESTED ON
+    Date(s) Tested  : 2025-11-16
+    Tested By       : Andres Torres
+    Systems Tested  : "STIG-Andres"
+    PowerShell Ver. : 5.1.26100.7019
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-WN11-CC-000327.ps1 
+#>
+
+# Define registry paths and values
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription"
+$enableTranscription = "EnableTranscripting"
+$transcriptDirectory = "OutputDirectory"
+$transcriptPath = "C:\Windows\Logs\PowerShellTranscripts"
+
+# Create the registry path if it doesn't exist
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force | Out-Null
+}
+
+# Set EnableTranscripting to 1 (enabled)
+Set-ItemProperty -Path $registryPath -Name $enableTranscription -Value 1 -Type DWord -Force
+
+# Set OutputDirectory to a secure location (e.g., C:\Windows\Logs\PowerShellTranscripts)
+Set-ItemProperty -Path $registryPath -Name $transcriptDirectory -Value $transcriptPath -Type String -Force
+
+# Ensure the transcript directory exists
+if (-not (Test-Path $transcriptPath)) {
+    New-Item -Path $transcriptPath -ItemType Directory -Force | Out-Null
+}
